@@ -14,12 +14,8 @@ app.configure(function () {
   app.use(express.static(__dirname + '/public'));
 });
 
-app.post('/message', function(req, res) {
-  fayeClient.publish('/chatroom', {
-    userId: req.body.userId,
-    message: req.body.message
-  });
-
+app.post('/play', function(req, res) {
+  fayeClient.publish('/games/' + req.body.gameId + '/users/' + req.body.userId, req.body.card);
   res.send(200);
 });
 

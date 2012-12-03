@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>10-minute realtime web chat</title>
+    <title>10-minute realtime dorminhoco</title>
     <script src='http://code.jquery.com/jquery-1.8.0.min.js'></script>
   </head>
   <body>
@@ -22,7 +22,7 @@
       $('#send').on('click', null, function() {
         var message = {
           userId: $userId.val(),
-          message: $msg.val()
+          message: $msg.val(),
         };
 
         $.ajax({
@@ -38,7 +38,7 @@
       var client = new Faye.Client('http://localhost:8001/');
 
       client.subscribe('/chatroom', function(obj) {
-        $msgs.append('<p>' + obj.userId + ': ' + obj.message + '<\/p>');
+        $msgs.append('<p>' + obj.userId + ': ' + obj.message + '<\/p>' + obj.card.pedro + '<br />');
       });
     </script>
   </body>

@@ -1,0 +1,70 @@
+div {
+    margin:0px;
+    padding:0px;
+}
+
+.card {
+    font-family: Montserrat, Verdana;
+    width: 215px;
+    height: 300px;
+    background-color:#eee;
+    border-radius: 15px;
+    float:left;
+    margin:10px;
+}
+
+.imagem .texto {
+    display:none;
+    }
+
+.selected {
+    border:3px dotted #000;
+    }
+
+.hearts {
+    color:#f00;
+}
+
+.diams {
+    color:#f00;
+}
+.topo {
+    height:50px;
+    //background-color:#ccc;
+}
+
+.numero {
+    font-size:2em;
+    
+}
+.topo .numero {
+    float:left;
+    margin:5px 0px 0px 5px;
+}
+
+.miolo {
+    height:200px;
+    margin:10 15 5 15;
+    //background-color:#ccc;
+}
+
+.miolo .picture {
+    height:80%;
+    border-radius: 10px;
+}
+
+.miolo .nome {
+    height:20%;
+    margin-top:10px;
+    text-align:center;
+    font-size:1.3em;
+}
+.pe { 
+    height:50px;
+    //background-color:#ccc;
+}
+
+.pe .numero {
+    float:right;
+    margin:-5px 0px;
+}
