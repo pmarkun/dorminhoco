@@ -6,6 +6,7 @@
         <script language="javascript" type="text/javascript" src="./vendor/ICanHaz.min.js"></script>
         <script language="javascript" type="text/javascript" src="./vendor/faye.js"></script>
         <script language="javascript" type="text/javascript" src="./vendor/jquery.csv-0.7.js"></script>
+        <script language="javascript" type="text/javascript" src="./js/misc.js"></script>
         <script language="javascript" type="text/javascript" src="./js/main.js"></script>
     
         <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>    
@@ -33,16 +34,17 @@
     </head>
     
     <body>
-        <div id="status"></div>
         <form action=''>
-        my_user_id: <input type='text' id='my-user-id' /><br/>
+        gameid: <input type='text' id='gameid' /><br/>
         next_user_id: <input type='text' id='user-id' /><br/>
-        <input type='button' value='Send' id='send' />
+        <input type='button' value='Play' id='play' />
         <input type='button' value='Deal' id='deal' />
-        <input type='button' value='Connect' id='connect' />
+        <input type='button' value='Create' id='create' />
+        <input type='button' value='Join' id='connect' />
         </form>
         <div id="container">
         
         </div>
+        <div id="status"></div>
     </body>
 </html>

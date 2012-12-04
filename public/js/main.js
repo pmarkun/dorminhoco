@@ -1,7 +1,8 @@
-var $SERVER_ADDR = "http://localhost:8000/message";
+$SUBSCRIBER_ADDR = 'http://localhost:8001';
+$SERVER_ADDR = 'http://localhost:8000';
 
-function Game(id) {
-    this.id = id;
+function Game() {
+    this.id = 0;
     this.deck = {};
     this.max_players = 5;
     this.max_cards = 5;
@@ -11,97 +12,164 @@ function Player(id) {
     this.id = id;
     this.hand = {};
 }
-
-function pickRandomProperty(obj) {
-    var result;
-    var count = 0;
-    for (var prop in obj)
-        if (Math.random() < 1/++count)
-           result = prop;
-    return result;
-}
-
-function csvtojson(csvfile) {
-  var data_pre = $.csv.toObjects(csvfile);
-  var data_pos = {};
-  $.each(data_pre, function(n, c) {
-      data_pos[c['id']] = c;
-  });
-  return data_pos;
-}
-
-$(document).ready(function () {
-
-game = new Game(0);
-
-$.ajax({
-    type: "GET",
-    url: "cartas/cartas.csv",
-    dataType: "text",
-    success: function(data) {
-         game.deck = csvtojson(data);
-
-        }
-    });
-    
-    
-    var $userId = $('#user-id');
-    var $selected = $('.selected').attr("id");
-    var $msg = $('#msg');
-
-    $('#deal').on('click', null, function() {
-            var message = {
-                userId : $('#user-id').val(),
-                gameId : 0,
-                card : game.deck[pickRandomProperty(game.deck)]
-            }
-            $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8000/play',
-                    data: message,
-                    dataType: 'json'
-                });
-            });
-    
-    $('#send').on('click', null, function() {
-        // seleciona e remove a carta ao enviar
-        var selected = $('.selected');
-        var id = selected.attr('id');
-        
-        selected.remove();
-        delete player.hand[id];
-        
+//Deal
+function Deal(id) {
+    c = Object.keys(player.hand).length+1;
+    for (c; c <= game.max_cards; c++) {
+        var cardid = pickRandomProperty(game.deck);
         var message = {
-          userId: $('#user-id').val(),
-          gameId: 0,
-          card: game.deck[id]
+            userId : id,
+            gameId : game.id,
+            card : game.deck[cardid]
+        };
+        
+        $.ajax({
+            type: 'POST',
+            url: $SERVER_ADDR + '/play',
+            data: message,
+            dataType: 'json'
+        });
+        
+        delete game.deck[cardid];
+    }
+            
+        $("#deal").attr("disabled", "disabled");
+}
+//End Deal
+
+//Play
+function Play() {
+    var selected = $('.selected');
+    var id = selected.attr('id');
+        
+    selected.remove();
+    
+    var message = {
+      userId: $('#user-id').val(),
+      gameId: game.id,
+      card: player.hand[id]
+    };
+    
+    $.ajax({
+      type: 'POST',
+      url: $SERVER_ADDR + '/play',
+      data: message,
+      dataType: 'json'
+    });
+}
+//End Play
+
+//Join
+function Join(id) {
+    var join_subscription = client.subscribe('/games/' + game.id + '/users/' + player.id, function(obj) {
+        $("#play").removeAttr("disabled");
+        player.hand[obj.card.id] = obj.card;
+        $("#container").append(ich.card(obj.card));
+        $("#"+obj.card.id).on('click', null, function() {
+            $(".card").removeClass("selected");
+            $(this).addClass("selected");
+        });
+    });
+        
+    join_subscription.callback(function() {
+        var message = {
+            userId: player.id,
+            gameId: game.id
         };
 
         $.ajax({
-          type: 'POST',
-          url: 'http://localhost:8000/play',
-          data: message,
-          dataType: 'json'
+            type: 'POST',
+            url: $SERVER_ADDR + '/join',
+            data: message,
+            dataType: 'json'
         });
+        
+        //Deal(player.id);
     });
+    return join_subscription;
+}
 
-    var client = new Faye.Client('http://localhost:8001/');
-    
-    $('#connect').on('click', null, function() {
-        $myuserid = $('#my-user-id').val();
-        $gameid = game.id;
-        player = new Player($myuserid);
-        
-        $("#status").text('Connected to game ' + $gameid + ' with player id ' + $myuserid);
-        $("#connect").attr("disabled", "disabled");
-        
-        client.subscribe('/games/' + game.id + '/users/' + player.id, function(obj) {
-            player.hand[obj.id] = obj;
-            $("#container").append(ich.card(obj));
-            $("#"+obj.id).on('click', null, function() {
-                $(".card").removeClass("selected");
-                $(this).addClass("selected");
-            });
-        });
+//Load deck
+function LoadDeck() {
+    $.ajax({
+        type: "GET",
+        url: "cartas/cartas.csv",
+        dataType: "text",
+        success: function(data) {
+            csvtojson(data);
+        }
     });
+}
+//End load deck
+
+//Create game
+function Create(game) {
+    var admin_subscription = client.subscribe('/games/' + game.id + '/admin', function(obj) {
+        console.log(obj);
+        console.log("Player " + obj.playerId + ' has joined the game' );
+    });
+    
+    admin_subscription.callback(function () {
+        join_subscription = Join(game);
+    });
+    
+    return admin_subscription;
+}
+//End Create game
+        
+$(document).ready(function () {   
+    client = new Faye.Client($SUBSCRIBER_ADDR);
+    var $userId = $('#user-id');
+    var $selected = $('.selected').attr("id");   
+    
+    // Play Button
+    $('#play').on('click', null, function() {
+        Play();
+        $("#play").attr("disabled", "disabled");
+        delete player.hand[id];
+    });
+    //End Play Button
+    
+    //Connect button
+    $('#connect').on('click', null, function() {
+        game = new Game();
+        game.id = $('#gameid').val();
+        game.admin = 0;
+        
+        player = new Player(1);
+        
+        join_subcription = Join(game.id);
+        
+        $("#status").text('Connected to game ' + game.id + ' with player id ' + player.id);
+        $("#connect").attr("disabled", "disabled");
+        $("#create").attr("disabled", "disabled");
+    });
+    //End connect button
+    
+    //Create game button
+    $('#create').on('click', null, function() {
+        game = new Game();
+        game.id = $('#gameid').val();
+        game.admin = 0;
+        
+        $.ajax({
+            type: "GET",
+            url: "cartas/cartas.csv",
+            dataType: "text",
+            async: false,
+            success: function(data) {
+                game.deck = csvtojson(data);
+            }
+        });
+        
+        player = new Player(game.admin);
+            
+        $('#status').text('Created game ' + game.id + ' with player id ' + player.id);
+        $("#connect").attr("disabled", "disabled");
+        $("#create").attr("disabled", "disabled");
+            
+        admin_subscription = Create(game);
+        });
+    //End create game button
+    
 });
