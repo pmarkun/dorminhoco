@@ -1,3 +1,4 @@
+<!DOCTYPE html >
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -10,6 +11,7 @@
         <script language="javascript" type="text/javascript" src="./js/main.js"></script>
     
         <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>    
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="./css/main.css" />
         <link rel="stylesheet" type="text/css" href="./css/cards.css" />
         <link rel="stylesheet" type="text/css" href="./css/cards-custom.css" />
@@ -36,13 +38,13 @@
     
     <body>
         <form action=''>
-        apelido: <input type='text' id='myid' /><br/>
-        sala: <input type='text' id='gameid' /><br/>
-        next_user_id: <input type='text' id='user-id' /><br/>
-        <input type='button' value='Play' id='play' />
-        <input type='button' value='Deal' id='deal' />
-        <input type='button' value='Create' id='create' />
-        <input type='button' value='Join' id='connect' />
+        <input placeholder="Apelido" type='text' id='myid' [] /><br/>
+        <input placeholder="Sala" type='text' id='gameid' /><br/>
+        <input placeholder="Próximo Jogador" type='text' id='user-id' /><br/>
+        <input class="btn" type='button' value='Play' id='play' />
+        <input class="btn" type='button' value='Deal' id='deal' />
+        <input class="btn btn-primary" type='button' value='Create' id='create' />
+        <input class="btn btn-success" type='button' value='Join' id='connect' />
         </form>
         <div id="container">
         
