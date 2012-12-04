@@ -14,14 +14,14 @@ function Player(id) {
 }
 //Deal
 function Deal(id) {
-    c = Object.keys(player.hand).length+1;
-    for (c; c <= game.max_cards; c++) {
+    for (c=1; c <= game.max_cards; c++) {
         var cardid = pickRandomProperty(game.deck);
         var message = {
             userId : id,
             gameId : game.id,
             card : game.deck[cardid]
         };
+        console.log(message);
         
         $.ajax({
             type: 'POST',
@@ -32,18 +32,11 @@ function Deal(id) {
         
         delete game.deck[cardid];
     }
-            
-        $("#deal").attr("disabled", "disabled");
 }
 //End Deal
 
 //Play
-function Play() {
-    var selected = $('.selected');
-    var id = selected.attr('id');
-        
-    selected.remove();
-    
+function Play(id) {
     var message = {
       userId: $('#user-id').val(),
       gameId: game.id,
@@ -60,7 +53,7 @@ function Play() {
 //End Play
 
 //Join
-function Join(id) {
+function Join(game, player) {
     var join_subscription = client.subscribe('/games/' + game.id + '/users/' + player.id, function(obj) {
         $("#play").removeAttr("disabled");
         player.hand[obj.card.id] = obj.card;
@@ -73,7 +66,7 @@ function Join(id) {
         
     join_subscription.callback(function() {
         var message = {
-            userId: player.id,
+            playerId: player.id,
             gameId: game.id
         };
 
@@ -83,8 +76,6 @@ function Join(id) {
             data: message,
             dataType: 'json'
         });
-        
-        //Deal(player.id);
     });
     return join_subscription;
 }
@@ -103,14 +94,13 @@ function LoadDeck() {
 //End load deck
 
 //Create game
-function Create(game) {
+function Create(game, player) {
     var admin_subscription = client.subscribe('/games/' + game.id + '/admin', function(obj) {
-        console.log(obj);
-        console.log("Player " + obj.playerId + ' has joined the game' );
+    console.log("Player " + player.id + " created game " + game.id);
     });
     
     admin_subscription.callback(function () {
-        join_subscription = Join(game);
+        join_subscription = Join(game, player);
     });
     
     return admin_subscription;
@@ -124,8 +114,12 @@ $(document).ready(function () {
     
     // Play Button
     $('#play').on('click', null, function() {
-        Play();
+        var selected = $('.selected');
+        var id = selected.attr('id');
+        
+        Play(id);
         $("#play").attr("disabled", "disabled");
+        selected.remove();
         delete player.hand[id];
     });
     //End Play Button
@@ -138,7 +132,7 @@ $(document).ready(function () {
         
         player = new Player(1);
         
-        join_subcription = Join(game.id);
+        join_subcription = Join(game, player);
         
         $("#status").text('Connected to game ' + game.id + ' with player id ' + player.id);
         $("#connect").attr("disabled", "disabled");
@@ -167,8 +161,15 @@ $(document).ready(function () {
         $('#status').text('Created game ' + game.id + ' with player id ' + player.id);
         $("#connect").attr("disabled", "disabled");
         $("#create").attr("disabled", "disabled");
-            
-        admin_subscription = Create(game);
+        
+        admin_subscription = Create(game, player);
+        
+        // Deal button
+        $('#deal').on('click', null, function() {
+            var id = $('#user-id').val();
+            Deal(id);
+        });
+        //End deal button
         });
     //End create game button
     
