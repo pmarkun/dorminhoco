@@ -1,11 +1,12 @@
-$SUBSCRIBER_ADDR = 'http://localhost:8001';
-$SERVER_ADDR = 'http://localhost:8000';
+$SUBSCRIBER_ADDR = 'http://10.42.43.1:8001';
+$SERVER_ADDR = 'http://10.42.43.1:8000';
 
 function Game() {
     this.id = 0;
     this.deck = {};
-    this.max_players = 5;
+    this.max_players = 2;
     this.max_cards = 5;
+    this.players = [];
 }
 
 function Player(id) {
@@ -13,24 +14,32 @@ function Player(id) {
     this.hand = {};
 }
 //Deal
-function Deal(id) {
-    for (c=1; c <= game.max_cards; c++) {
-        var cardid = pickRandomProperty(game.deck);
-        var message = {
-            userId : id,
-            gameId : game.id,
-            card : game.deck[cardid]
-        };
-        console.log(message);
-        
-        $.ajax({
-            type: 'POST',
-            url: $SERVER_ADDR + '/play',
-            data: message,
-            dataType: 'json'
+function Deal(game) {
+    if (game.players.length < game.max_players) {
+        $('#status').text('Still missing ' + (game.max_players-game.players.length) + ' players');
+    }
+    else {
+        console.log(game);
+        game.players.forEach(function (player) {
+            console.log(player);
+            for (c=1; c <= game.max_cards; c++) {
+                var cardid = pickRandomProperty(game.deck);
+                var message = {
+                    userId : player,
+                    gameId : game.id,
+                    card : game.deck[cardid]
+                };
+                
+                $.ajax({
+                    type: 'POST',
+                    url: $SERVER_ADDR + '/play',
+                    data: message,
+                    dataType: 'json'
+                });
+                
+                delete game.deck[cardid];
+            }
         });
-        
-        delete game.deck[cardid];
     }
 }
 //End Deal
@@ -96,7 +105,8 @@ function LoadDeck() {
 //Create game
 function Create(game, player) {
     var admin_subscription = client.subscribe('/games/' + game.id + '/admin', function(obj) {
-    console.log("Player " + player.id + " created game " + game.id);
+        game['players'].push(obj.playerId);
+        $('#players').append('<p>'+obj.playerId+'</p>');
     });
     
     admin_subscription.callback(function () {
@@ -128,9 +138,9 @@ $(document).ready(function () {
     $('#connect').on('click', null, function() {
         game = new Game();
         game.id = $('#gameid').val();
-        game.admin = 0;
+        var myid = $('#myid').val()
         
-        player = new Player(1);
+        player = new Player(myid);
         
         join_subcription = Join(game, player);
         
@@ -144,7 +154,7 @@ $(document).ready(function () {
     $('#create').on('click', null, function() {
         game = new Game();
         game.id = $('#gameid').val();
-        game.admin = 0;
+        game.admin = $('#myid').val();
         
         $.ajax({
             type: "GET",
@@ -165,9 +175,10 @@ $(document).ready(function () {
         admin_subscription = Create(game, player);
         
         // Deal button
+        $('#deal').show();
         $('#deal').on('click', null, function() {
             var id = $('#user-id').val();
-            Deal(id);
+            Deal(game);
         });
         //End deal button
         });

@@ -72,3 +72,7 @@ div {
 #status {
     float: right;
     }
+
+#deal {
+    display: none;
+    }
