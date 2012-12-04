@@ -12,17 +12,18 @@
         <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>    
         <link rel="stylesheet" type="text/css" href="./css/main.css" />
         <link rel="stylesheet" type="text/css" href="./css/cards.css" />
+        <link rel="stylesheet" type="text/css" href="./css/cards-custom.css" />
     
     
     <script id="card" type="text/html">
-        <div id="{{id}}" class="card {{carta}}">
+        <div id="{{id}}" class="card {{carta}} {{tipo}}">
             <div class="topo">
                 <span class="numero">{{numero}}</span>
             </div>
             
             <div class="miolo">
                 <div class="picture" style="background-image:url('{{body}}');"><span class="texto">{{body}}</span></div>
-                <div class="nome">{{tipo}}</div>
+                <div class="nome">{{nome}}</div>
             </div>
             
             <div class="pe">

@@ -1,10 +1,10 @@
-$SUBSCRIBER_ADDR = 'http://10.42.43.1:8001';
-$SERVER_ADDR = 'http://10.42.43.1:8000';
+$SUBSCRIBER_ADDR = 'http://localhost:8001';
+$SERVER_ADDR = 'http://localhost:8000';
 
 function Game() {
     this.id = 0;
     this.deck = {};
-    this.max_players = 2;
+    this.max_players = 1;
     this.max_cards = 5;
     this.players = [];
 }
