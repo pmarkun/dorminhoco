@@ -3,17 +3,17 @@ Célula Epitelial,morfologia ,1,Esse tipo de célula é geralmente achatado com 
 Célula Epitelial,localização,2,"Esse tipo de célula forma tecidos que se organizam em camadas, revestindo interna e externamente todo organismo.",epi_loc_2,epitelial
 Célula Epitelial,função,3,Esse tipo de célula desempenha função de proteção e isolamento do organismo em relação ao meio externo.,epi_fun_3,epitelial
 Célula Epitelial,curiosidades,4,O Cascão não toma banho há um tempão. Sabia que ele tem essas células mortas de montão!!!,epi_cur_4,epitelial
-Célula Epitelial,imagem,5,http://cellfunctioning.wikispaces.com/file/view/cheekcells.jpg/210933652/cheekcells.jpg,epi_img_5,epitelial
+Célula Epitelial,imagem,5,,epi_img_5,epitelial
 Celula Adiposa,morfologia ,1,Esse tipo de célula apresenta uma forma esférica.,adi_mor_1,adiposa
 Celula Adiposa,localização,2,"Esse tipo de célula está presente no corpo todo, principalmente abaixo da pele “formando os pneuzinhos”.",adi_loc_2,adiposa
 Celula Adiposa,função,3,Esse tipo de célula armazena gordura como reserva para obter energia e proteção contra o frio.,adi_fun_3,adiposa
 Celula Adiposa,curiosidades,4,Para se livrarem desse tipo de células as pessoas fazem lipoaspiração.,adi_cur_4,adiposa
-Celula Adiposa,imagem,5,http://3.bp.blogspot.com/-vsuc_rkxfJE/T0EuaeBeeQI/AAAAAAAAALI/H0iMDA_71dQ/s1600/tecido%2Bconjuntivo%2Badiposo.jpg,adi_img_5,adiposa
+Celula Adiposa,imagem,5,,adi_img_5,adiposa
 Célula Sanguínia,morfologia ,1,Esse tipo de célula apresenta uma forma discóide e é desprovida de núcleo.,san_mor_1,sanguinia
 Célula Sanguínia,localização,2,Esse tipo de célula é encontrado apenas dentro dos vasos sangüíneos.,san_loc_2,sanguinia
 Célula Sanguínia,função,3,O transporte de oxigênio (O2) e gás carbônico (CO2) no organismo é feito por esse tipo de célula.,san_fun_3,sanguinia
 Célula Sanguínia,curiosidades,4,"Não é tímida, mas está sempre vermelha por causa da hemoglobina",san_cur_4,sanguinia
-Célula Sanguínia,imagem,5,http://4.bp.blogspot.com/-vutCJwcOg0g/Tmk0fM5Wq1I/AAAAAAAAAJE/TWnJ-lLj4Dc/s1600/CELULAS+SANGUINEAS.jpg,san_img_5,sanguinia
+Célula Sanguínia,imagem,5,,san_img_5,sanguinia
 Célula Óssea,morfologia ,1,"Esse tipo de célula está localizada nas
 cavidades de uma estrutura rígida e tem um formato esférico com projeções.",oss_mor_1,ossea
 Célula Óssea,localização,2,Esse tipo de célula é encontrado no tecido ósseo.,oss_loc_2,ossea
@@ -24,9 +24,9 @@ Célula Nervosa,morfologia ,1,Esse tipo de célula possui uma região central de
 Célula Nervosa,localização,2,"Esse tipo de célula é encontrado em todo o organismo, em maior concentração nos órgãos protegidos pelo crânio e pelacoluna vertebral.",ner_loc_2,nervosa
 Célula Nervosa,função,3,"A função desse tipo de célula é transmitir, por meio de sinais químicos e elétricos, sensações de dor, calor, prazer, etc.",ner_fun_3,nervosa
 Célula Nervosa,curiosidades,4,As substâncias conhecidas como “drogas que dão barato” afetam a comunicação entre as células desse tipo.,ner_cur_4,nervosa
-Célula Nervosa,imagem,5,http://www.cdcc.usp.br/ciencia/artigos/art_33/EraUmaVez_clip_image001.jpg,ner_img_5,nervosa
-Célula Muscular Estriada Esquelética,morfologia ,1,"Esse tipo de célula, geralmente alongado, cilíndrico e fino; é a unidade formadora das fibras contráteis.",mee_mor_1,muscular
-Célula Muscular Estriada Esquelética,localização,2,"Esse tipo de célula forma um tecido que, pelos tendões, fica preso aos ossos do corpo.",mee_loc_2,muscular
-Célula Muscular Estriada Esquelética,função,3,"Esse tipo de célula forma um tecido que, por contração e relaxamento realiza os movimentos do corpo.",mee_fun_3,muscular
-Célula Muscular Estriada Esquelética,curiosidades,4,"Aquele que se acha o tal, o saradão, valoriza muito esse tipo de célula.",mee_cur_4,muscular
-Célula Muscular Estriada Esquelética,imagem,5,http://minerva.ufpel.edu.br/~mgrheing/cd_histologia/geral/L5_400x_estrias.jpg,mee_img_5,muscular
+Célula Nervosa,imagem,5,,ner_img_5,nervosa
+Célula Muscular Estriada Esquelética,morfologia ,1,"Esse tipo de célula, geralmente alongado, cilíndrico e fino; é a unidade formadora das fibras contráteis.",mee_mor_1,mee
+Célula Muscular Estriada Esquelética,localização,2,"Esse tipo de célula forma um tecido que, pelos tendões, fica preso aos ossos do corpo.",mee_loc_2,mee
+Célula Muscular Estriada Esquelética,função,3,"Esse tipo de célula forma um tecido que, por contração e relaxamento realiza os movimentos do corpo.",mee_fun_3,mee
+Célula Muscular Estriada Esquelética,curiosidades,4,"Aquele que se acha o tal, o saradão, valoriza muito esse tipo de célula.",mee_cur_4,mee
+Célula Muscular Estriada Esquelética,imagem,5,,mee_img_5,mee
