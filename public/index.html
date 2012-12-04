@@ -7,18 +7,21 @@
         <script language="javascript" type="text/javascript" src="./vendor/ICanHaz.min.js"></script>
         <script language="javascript" type="text/javascript" src="./vendor/faye.js"></script>
         <script language="javascript" type="text/javascript" src="./vendor/jquery.csv-0.7.js"></script>
+        <script language="javascript" type="text/javascript" src="./vendor/modernizr.js"></script>
+        <script language="javascript" type="text/javascript" src="./vendor/jquery.baraja.js"></script>
         <script language="javascript" type="text/javascript" src="./js/misc.js"></script>
         <script language="javascript" type="text/javascript" src="./js/main.js"></script>
     
         <link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>    
         <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="./css/main.css" />
+        <link rel="stylesheet" type="text/css" href="./vendor/baraja.css" />
         <link rel="stylesheet" type="text/css" href="./css/cards.css" />
         <link rel="stylesheet" type="text/css" href="./css/cards-custom.css" />
     
     
     <script id="card" type="text/html">
-        <div id="{{id}}" class="card {{carta}} {{tipo}}">
+        <li id="{{id}}" class="card {{carta}} {{tipo}}">
             <div class="topo">
                 <span class="numero">{{numero}}</span>
             </div>
@@ -31,7 +34,7 @@
             <div class="pe">
                 <span class="numero">{{numero}}</span>
             </div>
-        </div>
+        </li>
     
     </script>
     </head>
@@ -46,9 +49,9 @@
         <input class="btn btn-primary" type='button' value='Create' id='create' />
         <input class="btn btn-success" type='button' value='Join' id='connect' />
         </form>
-        <div id="container">
+        <ul id="container" class="baraja-container">
         
-        </div>
+        </ul>
         <div id="status"></div>
         <div id="players"></div>
     </body>
