@@ -5,9 +5,7 @@ div {
 
 .card {
     font-family: Montserrat, Verdana;
-    width: 215px;
-    height: 300px;
-    background-color:#eee;
+    background:#eee !important;
     border-radius: 15px;
     margin:10px;
 }

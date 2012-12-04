@@ -19,9 +19,7 @@ function Deal(game) {
         $('#status').text('Still missing ' + (game.max_players-game.players.length) + ' players');
     }
     else {
-        console.log(game);
         game.players.forEach(function (player) {
-            console.log(player);
             for (c=1; c <= game.max_cards; c++) {
                 var cardid = pickRandomProperty(game.deck);
                 var message = {
@@ -66,7 +64,7 @@ function Join(game, player) {
     var join_subscription = client.subscribe('/games/' + game.id + '/users/' + player.id, function(obj) {
         $("#play").removeAttr("disabled");
         player.hand[obj.card.id] = obj.card;
-        $("#container").baraja().add(ich.card(obj.card));
+        $('#hand').append((ich.card(obj.card)));
         $("#"+obj.card.id).on('click', null, function() {
             $(".card").removeClass("selected");
             $(this).addClass("selected");
@@ -121,8 +119,6 @@ $(document).ready(function () {
     client = new Faye.Client($SUBSCRIBER_ADDR);
     var $userId = $('#user-id');
     var $selected = $('.selected').attr("id");
-
-    $('#container').baraja().fan();
 
     // Play Button
     $('#play').on('click', null, function() {
